@@ -1,0 +1,37 @@
+[database_config]
+url = "localhost:8000"
+username = "root"
+password = "root"
+
+[resource]
+game_cfg_dir = "assets/game/GameCfg"
+share_cfg_dir = "assets/game/ShareCfg"
+share_cfg_data_dir = "assets/game/sharecfgdata"
+
+[tls_config]
+cert_path = "assets/tls/cert.pem"
+key_path = "assets/tls/key.pem"
+
+[sdk_config]
+http_addr = "0.0.0.0:21080"
+https_addr = "0.0.0.0:21443"
+code_path = "assets/sdk/code.json"
+settings_path = "assets/sdk/settings.json"
+error_code_path = "assets/sdk/errorcode.json"
+
+[dispatch_config]
+ip = "192.168.31.127"
+port = 21180
+version_path = "assets/dispatch/version.json"
+servers_path = "assets/dispatch/servers.json"
+salt = "dettimrepsignihtyrevednaeurtsignihton"
+
+[gate_config]
+outer_host = "0.0.0.0:21280"
+inner_listen_addr = "127.0.0.1:10001"
+game_server_addr = "127.0.0.1:10002"
+salt = "dettimrepsignihtyrevednaeurtsignihton"
+
+[game_config]
+listen_addr = "127.0.0.1:10002"
+gate_server_addr = "127.0.0.1:10001"

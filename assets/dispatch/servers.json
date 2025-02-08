@@ -1,0 +1,15 @@
+[
+  {
+    "ids": [
+      1
+    ],
+    "ip": "192.168.31.127",
+    "name": "CheshireDev",
+    "port": 21280,
+    "proxy_ip": "192.168.31.127",
+    "proxy_port": 21280,
+    "sort": 0,
+    "state": 0,
+    "tag_state": 2
+  }
+]

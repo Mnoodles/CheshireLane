@@ -1,0 +1,23 @@
+[package]
+name = "network"
+version.workspace = true
+authors.workspace = true
+description.workspace = true
+license.workspace = true
+repository.workspace = true
+homepage.workspace = true
+documentation.workspace = true
+readme.workspace = true
+edition.workspace = true
+
+[dependencies]
+proto.workspace = true
+common.workspace = true
+byteorder.workspace = true
+anyhow.workspace = true
+thiserror.workspace = true
+serde.workspace = true
+tokio.workspace = true
+futures.workspace = true
+zeromq.workspace = true
+rand.workspace = true

@@ -1,0 +1,20 @@
+[package]
+name = "ecs-player"
+version.workspace = true
+authors.workspace = true
+description.workspace = true
+license.workspace = true
+repository.workspace = true
+homepage.workspace = true
+documentation.workspace = true
+readme.workspace = true
+edition.workspace = true
+
+[dependencies]
+bevy_app.workspace = true
+bevy_ecs.workspace = true
+proto.workspace = true
+common.workspace = true
+ecs-message.workspace = true
+ecs-persistence.workspace = true
+ecs-database.workspace = true

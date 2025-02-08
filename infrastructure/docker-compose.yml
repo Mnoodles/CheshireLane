@@ -1,0 +1,23 @@
+services:
+  data:
+    image: busybox
+    command: chmod -R 777 /cheshire
+    volumes:
+      - surrealdb-data:/cheshire
+  surrealdb:
+    image: surrealdb/surrealdb:latest
+    entrypoint:
+      - /surreal
+      - start
+      - --user
+      - root
+      - --pass
+      - root
+      - surrealkv://cheshire
+    ports:
+      - "8000:8000"
+    volumes:
+      - surrealdb-data:/cheshire
+
+volumes:
+  surrealdb-data:

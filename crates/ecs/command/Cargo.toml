@@ -1,0 +1,20 @@
+[package]
+name = "ecs-command"
+version.workspace = true
+authors.workspace = true
+description.workspace = true
+license.workspace = true
+repository.workspace = true
+homepage.workspace = true
+documentation.workspace = true
+readme.workspace = true
+edition.workspace = true
+
+[dependencies]
+bevy_app.workspace = true
+bevy_ecs.workspace = true
+ecs-persistence.workspace = true
+common.workspace = true
+data.workspace = true
+ecs-inventory.workspace = true
+ecs-database.workspace = true

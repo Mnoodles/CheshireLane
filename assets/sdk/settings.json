@@ -1,0 +1,84 @@
+{
+  "settings": {
+    "APP_ANDROIDKEY": "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAk04kub4MdcLXmqSYOJxZ4aGWNxaPCjp2J2TjKAjmrwh1I7LtSPeutbYE6Zjgx9MYG3F7MpZncCUNoZ2gaKZSqhw39ITJ+3LJdXBtr8Y4IKbTi/XoCycHawUr6a+860SznPvIZZqaTUUzDp2YDZSgAQb01ZcTyQI/U+nLggJ9bOZq2Lddosyoymdv81d0xih3nxQ6eL6qFLHz+5nMp6Uos82VYqWpB88Gb4Ri0oclCLDlyiiRshuut7GFAjHl+kgf5GovoZReJqz86yq8eU45FtfziWiArX2h5TjUE9rYZjofGgsn2M83CWmpeEP/Ky9ZyjW+e1EKa1LXmvM3MdWIswIDAQAB",
+    "ADJUST_ENABLED": 1,
+    "ADJUST_ISDEBUG": 0,
+    "ADJUST_APPID": "9ldfqpo1zx1c",
+    "ADJUST_CHARGEEVENTTOKEN": "wpf4hu",
+    "TWITTER_CLIENT_ID": "NHBIOGhYVG1hZlhHMVIySjZHVXI6MTpjaQ",
+    "app_gl": "en",
+    "app_debug": 0,
+    "app_fire": 1,
+    "UserDestroyDays": 15,
+    "DETECTION_ADDRESS": {
+      "AUTO": {
+        "DNS": [
+          "https://www.blhxusstatic.yo-star.com",
+          "https://www.blhxusstatic.yo-star.com"
+        ],
+        "HTTP": [
+          "https://www.blhxusstatic.yo-star.com",
+          "https://www.blhxusstatic.yo-star.com"
+        ],
+        "MTR": [
+          "https://www.blhxusstatic.yo-star.com",
+          "https://www.blhxusstatic.yo-star.com"
+        ]
+      },
+      "ENABLE": 1
+    },
+    "LOG_ENABLE": 1,
+    "MERGE_TO_4X": {
+      "WEB_URL": "https://sdk-association.yostarplat.com/#/index",
+      "ONE_KEY_ENABLE": 1
+    },
+    "AES": {
+      "AccessKeyId": "7b5d0ffd0943f26704fc547a871c68b1b5d56b5c9caeb354205b81f445d7af59",
+      "AccessKeySecret": "4a5e9cc8a50819290c9bfa1fedc79da7c50e85189a05eb462a3d28a7688eabb0"
+    },
+    "AIHELP_MODE": 1,
+    "ADJUST_EVENTTOKENS": {
+      "2d_retention": "kuhv8j",
+      "7d_retention": "dhtuhc",
+      "account_create": "binqg9",
+      "completed_registration": "9og2k7",
+      "purchase": "wopxnk",
+      "purchase_click": "v3vmv8",
+      "purchase_click_diamond": "bmrzqo",
+      "purchase_click_giftbag": "xt7jbc",
+      "purchase_click_monthlycard": "b3z5at",
+      "purchase_first": "mqg9kg",
+      "role_create": "2j5npu",
+      "role_levelup": "h3ohkb",
+      "role_login": "ax1v0t",
+      "role_logout": "cmyuyx",
+      "tutorial_complete": "d5ydk2",
+      "tutorial_complete_1": "b3vh0x",
+      "tutorial_complete_2": "fa1z6r",
+      "tutorial_complete_3": "2gdwsh",
+      "tutorial_complete_4": "pmg7ny",
+      "user_charge": "wpf4hu",
+      "user_charge_first": "u912no",
+      "ysdk_err": "dmpp3y",
+      "behavior_verification_failed": "q6psau",
+      "behavior_check": "wgjks1"
+    },
+    "GOOGLE_CLIENT_ID": "150452741869-sojo18oh2am6u573v5achpi78kau4s52.apps.googleusercontent.com",
+    "TWITTER_KEY": "e7wRygYH7SUa2hQ8srVXzeUKm",
+    "TWITTER_SECRET": "JCeb2Su9frkBqoBNCMH6gkcrLPol2o5VBe97baSCKEnl8oyhDi",
+    "FACEBOOK_APPID": "962529950581548",
+    "FACEBOOK_CLIENTTOKEN": "8e18135edd631fa22769c0cdad16bbba",
+    "APP_BIRTHSET_ENABLED": 0,
+    "REMOTE_CONFIG": [
+      {
+        "config_key": "will_pay_android_en",
+        "event_name": "prediction_payer"
+      },
+      {
+        "config_key": "will_payclick_android_en",
+        "event_name": "prediction_payclicker"
+      }
+    ]
+  },
+  "EuropeUnion": false
+}

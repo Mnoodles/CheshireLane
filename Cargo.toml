@@ -1,0 +1,126 @@
+# CheshireLane
+
+[workspace]
+members = [
+    "crates/common",
+    "crates/config",
+    "crates/data",
+    "crates/database",
+    "crates/dispatch-server",
+    "crates/ecs/activity",
+    "crates/ecs/command",
+    "crates/ecs/combat",
+    "crates/ecs/database",
+    "crates/ecs/inventory",
+    "crates/ecs/login",
+    "crates/ecs/message",
+    "crates/ecs/persistence",
+    "crates/ecs/player",
+    "crates/ecs/system",
+    "crates/ecs/technology",
+    "crates/ecs/time",
+    "crates/encryption",
+    "crates/game-server",
+    "crates/game-server-core",
+    "crates/gate-server",
+    "crates/network",
+    "crates/proto",
+    "crates/sdk-server",
+    "xtask",
+]
+resolver = "2"
+
+[workspace.package]
+version = "0.0.1"
+authors = ["Irminsul.dev <https://github.com/Irminsul-dev>"]
+description = "CheshireLane: a proof-of-concept PS for game Azur Lane"
+license = "AGPL-3.0"
+repository = "https://github.com/Irminsul-dev/CheshireLane"
+homepage = "https://github.com/Irminsul-dev/CheshireLane"
+documentation = "https://github.com/Irminsul-dev/CheshireLane"
+readme = "README.md"
+edition = "2021"
+
+[workspace.dependencies]
+# Runtime
+tokio = { version = "1.40.0", features = ["full"] }
+axum = "0.8.1"
+axum-server = { version = "0.7.1", features = ["tls-rustls"] }
+rustls = { version = "0.23.20", default-features = false, features = ["ring"] }
+futures = "0.3.31"
+tower-http = { version = "0.6.2", features = ["fs"] }
+
+# Serialization
+serde = { version = "1.0.210", features = ["derive"] }
+serde_json = "1.0.128"
+toml = "0.8.19"
+
+prost = "0.13.3"
+prost-types = "0.13.3"
+prost-build = "0.13.3"
+
+# Logic
+bevy_app = { version = "0.14.2", default-features = false }
+bevy_ecs = { version = "0.14.2", default-features = false }
+
+# Error processing
+anyhow = "1.0.89"
+thiserror = "2.0.7"
+
+# Networking
+zeromq = { version = "0.4.1", features = ["tokio-runtime", "tcp-transport"] }
+
+# Cryptography
+password-hash = { version = "0.5.0", features = ["alloc", "rand_core"] }
+pbkdf2 = { version = "0.12.2", features = ["simple"] }
+md5 = "0.7.0"
+
+# Database
+surrealdb = "2.0.4"
+
+# Encoding
+byteorder = "1.5.0"
+
+# Util
+rand = "0.8.5"
+askama = "0.12"
+chrono = "0.4.39"
+clap = { version = "4.5.26", features = ["derive"] }
+dashmap = "6.1.0"
+paste = "1.0.15"
+async-trait = "0.1.85"
+
+# Logging
+tracing = "0.1.40"
+tracing-subscriber = "0.3.18"
+ansi_term = "0.12"
+rustyline-async = "0.4"
+
+# Internal
+common = { path = "crates/common" }
+config = { path = "crates/config" }
+database = { path = "crates/database" }
+proto = { path = "crates/proto" }
+network = { path = "crates/network" }
+encryption = { path = "crates/encryption" }
+data = { path = "crates/data" }
+game-server-core = { path = "crates/game-server-core"}
+
+ecs-message = { path = "crates/ecs/message" }
+ecs-persistence = { path = "crates/ecs/persistence" }
+ecs-command = { path="crates/ecs/command" }
+ecs-login = { path = "crates/ecs/login" }
+ecs-activity = { path = "crates/ecs/activity" }
+ecs-combat = { path = "crates/ecs/combat" }
+ecs-inventory = { path = "crates/ecs/inventory" }
+ecs-technology = { path = "crates/ecs/technology" }
+ecs-system = { path = "crates/ecs/system" }
+ecs-player = { path = "crates/ecs/player" }
+ecs-database = { path = "crates/ecs/database" }
+ecs-time = { path = "crates/ecs/time" }
+
+[profile.release]
+strip = true
+lto = true
+opt-level = 3
+codegen-units = 1

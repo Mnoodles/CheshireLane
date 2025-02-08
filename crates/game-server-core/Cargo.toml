@@ -1,0 +1,29 @@
+[package]
+name = "game-server-core"
+version.workspace = true
+authors.workspace = true
+description.workspace = true
+license.workspace = true
+repository.workspace = true
+homepage.workspace = true
+documentation.workspace = true
+readme.workspace = true
+edition.workspace = true
+
+[dependencies]
+bevy_app.workspace = true
+ecs-persistence.workspace = true
+ecs-message.workspace = true
+ecs-command.workspace = true
+ecs-login.workspace = true
+ecs-activity.workspace = true
+ecs-combat.workspace = true
+ecs-inventory.workspace = true
+ecs-technology.workspace = true
+ecs-system.workspace = true
+ecs-player.workspace = true
+ecs-database.workspace = true
+ecs-time.workspace = true
+tokio.workspace = true
+serde_json.workspace = true
+common.workspace = true

@@ -1,0 +1,26 @@
+[package]
+name = "ecs-login"
+version.workspace = true
+authors.workspace = true
+description.workspace = true
+license.workspace = true
+repository.workspace = true
+homepage.workspace = true
+documentation.workspace = true
+readme.workspace = true
+edition.workspace = true
+
+[dependencies]
+bevy_app.workspace = true
+bevy_ecs.workspace = true
+common.workspace = true
+ecs-message.workspace = true
+ecs-persistence.workspace = true
+ecs-player.workspace = true
+ecs-activity.workspace = true
+ecs-combat.workspace = true
+ecs-inventory.workspace = true
+ecs-technology.workspace = true
+ecs-system.workspace = true
+ecs-database.workspace = true
+proto.workspace = true
