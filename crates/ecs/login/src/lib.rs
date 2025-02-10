@@ -152,7 +152,7 @@ pub struct NotifyEvents<'w> {
 
 fn load_player_data(
     mut events: EventReader<ClientMessageEvent>,
-    player: Res<Player>,
+    mut player: ResMut<Player>,
     mut time_synchronization: EventWriter<TimeSynchronization>,
     mut finish_load_player_data_events: EventWriter<FinishLoadPlayerData>,
     mut notify_events: NotifyEvents,
@@ -161,85 +161,309 @@ fn load_player_data(
         if let Some(req) = message.decode::<Cs11001>() {
             logging::debug!("LoadPlayerData: {:?}", req);
 
-            time_synchronization
-                .send(TimeSynchronization(player.uid(), message.id(), 1, 38));
+            let extra_num = player.info().player_ships_data_chunk_extra_num();
+
+            time_synchronization.send(TimeSynchronization(
+                player.uid(),
+                message.id(),
+                1,
+                38 + extra_num,
+            ));
 
             // Notify Data
-            notify_events.notify_player_data_events
-                .send(NotifyPlayerDataEvent(player.uid(), message.id(), 2, 38));
-            notify_events.notify_player_buff_event
-                .send(NotifyPlayerBuffEvent(player.uid(), message.id(), 3, 38));
-            notify_events.notify_reflux_data_event
-                .send(NotifyRefluxDataEvent(player.uid(), message.id(), 4, 38));
-            notify_events.notify_naval_academy_event
-                .send(NotifyNavalAcademyEvent(player.uid(), message.id(), 5, 38));
-            notify_events.notify_game_room_event
-                .send(NotifyGameRoomEvent(player.uid(), message.id(), 6, 38));
-            notify_events.notify_commander_data_event
-                .send(NotifyCommanderDataEvent(message.uid(), message.id(), 7, 38));
-            notify_events.notify_statistics_event
-                .send(NotifyStatisticsEvent(player.uid(), message.id(), 8, 38));
-            notify_events.notify_build_ship_event
-                .send(NotifyBuildShipEvent(player.uid(), message.id(), 9, 38));
-            notify_events.notify_ship_data_event
-                .send(NotifyShipDataEvent(player.uid(), message.id(), 10, 38));
-            notify_events.notify_fleet_data_event
-                .send(NotifyFleetDataEvent(player.uid(), message.id(), 11, 38));
-            notify_events.notify_ship_skin_data_event
-                .send(NotifyShipSkinDataEvent(player.uid(), message.id(), 12, 38));
-            notify_events.notify_technology_data_event
-                .send(NotifyTechnologyDataEvent(player.uid(), message.id(), 13, 38));
-            notify_events.notify_blueprint_data_event
-                .send(NotifyBlueprintDataEvent(player.uid(), message.id(), 14, 38));
-            notify_events.notify_tech_set_lists_event
-                .send(NotifyTechSetListsEvent(player.uid(), message.id(), 15, 38));
-            notify_events.notify_chapter_data_event
-                .send(NotifyChapterDataEvent(player.uid(), message.id(), 16, 38));
-            notify_events.notify_current_chapter_event
-                .send(NotifyCurrentChapterEvent(player.uid(), message.id(), 17, 38));
-            notify_events.notify_event_info_event
-                .send(NotifyEventInfoEvent(player.uid(), message.id(), 18, 38));
-            notify_events.notify_daily_level_register_event
-                .send(NotifyDailyLevelRegisterEvent(player.uid(), message.id(), 19, 38));
-            notify_events.notify_shop_month_event
-                .send(NotifyShopMonthEvent(player.uid(), message.id(), 20, 38));
-            notify_events.notify_world_data_event
-                .send(NotifyWorldDataEvent(player.uid(), message.id(), 21, 38));
-            notify_events.notify_equip_data_event
-                .send(NotifyEquipDataEvent(player.uid(), message.id(), 22, 38));
-            notify_events.notify_equip_skin_data_event
-                .send(NotifyEquipSkinDataEvent(player.uid(), message.id(), 23, 38));
-            notify_events.notify_bag_data_event
-                .send(NotifyBagDataEvent(player.uid(), message.id(), 24, 38));
-            notify_events.notify_init_task_info_event
-                .send(NotifyInitTaskInfoEvent(player.uid(), message.id(), 25, 38));
-            notify_events.notify_week_task_progress_info_event
-                .send(NotifyWeekTaskProgressInfoEvent(player.uid(), message.id(), 26, 38));
-            notify_events.notify_total_task_register_event
-                .send(NotifyTotalTaskRegisterEvent(player.uid(), message.id(), 27, 38));
-            notify_events.notify_dorm_data_event
-                .send(NotifyDormDataEvent(player.uid(), message.id(), 28, 38));
-            notify_events.notify_energy_recover_time_event
-                .send(NotifyEnergyRecoverTimeEvent(player.uid(), message.id(), 29, 38));
-            notify_events.notify_apartment_register_event
-                .send(NotifyApartmentRegisterEvent(player.uid(), message.id(), 30, 38));
-            notify_events.notify_mail_register_event
-                .send(NotifyMailRegisterEvent(player.uid(), message.id(), 31, 38));
-            notify_events.notify_compensate_register_event
-                .send(NotifyCompensateRegisterEvent(player.uid(), message.id(), 32, 38));
-            notify_events.notify_notification_register_event
-                .send(NotifyNotificationRegisterEvent(player.uid(), message.id(), 33, 38));
-            notify_events.notify_instagram_register_event
-                .send(NotifyInstagramRegisterEvent(player.uid(), message.id(), 34, 38));
-            notify_events.notify_activity_data_event
-                .send(NotifyActivityDataEvent(player.uid(), message.id(), 35, 38));
-            notify_events.notify_activity_permanent_register_event
-                .send(NotifyActivityPermanentRegisterEvent(player.uid(), message.id(), 36, 38));
-            notify_events.notify_server_notice_register_event
-                .send(NotifyServerNoticeRegisterEvent(player.uid(), message.id(), 37, 38));
+            notify_events
+                .notify_player_data_events
+                .send(NotifyPlayerDataEvent(
+                    player.uid(),
+                    message.id(),
+                    2,
+                    38 + extra_num,
+                ));
+            notify_events
+                .notify_player_buff_event
+                .send(NotifyPlayerBuffEvent(
+                    player.uid(),
+                    message.id(),
+                    3,
+                    38 + extra_num,
+                ));
+            notify_events
+                .notify_reflux_data_event
+                .send(NotifyRefluxDataEvent(
+                    player.uid(),
+                    message.id(),
+                    4,
+                    38 + extra_num,
+                ));
+            notify_events
+                .notify_naval_academy_event
+                .send(NotifyNavalAcademyEvent(
+                    player.uid(),
+                    message.id(),
+                    5,
+                    38 + extra_num,
+                ));
+            notify_events
+                .notify_game_room_event
+                .send(NotifyGameRoomEvent(
+                    player.uid(),
+                    message.id(),
+                    6,
+                    38 + extra_num,
+                ));
+            notify_events
+                .notify_commander_data_event
+                .send(NotifyCommanderDataEvent(
+                    message.uid(),
+                    message.id(),
+                    7,
+                    38 + extra_num,
+                ));
+            notify_events
+                .notify_statistics_event
+                .send(NotifyStatisticsEvent(
+                    player.uid(),
+                    message.id(),
+                    8,
+                    38 + extra_num,
+                ));
+            notify_events
+                .notify_build_ship_event
+                .send(NotifyBuildShipEvent(
+                    player.uid(),
+                    message.id(),
+                    9,
+                    38 + extra_num,
+                ));
+            notify_events
+                .notify_ship_data_event
+                .send(NotifyShipDataEvent(
+                    player.uid(),
+                    message.id(),
+                    10,
+                    38 + extra_num,
+                ));
+            notify_events
+                .notify_fleet_data_event
+                .send(NotifyFleetDataEvent(
+                    player.uid(),
+                    message.id(),
+                    11 + extra_num,
+                    38 + extra_num,
+                ));
+            notify_events
+                .notify_ship_skin_data_event
+                .send(NotifyShipSkinDataEvent(
+                    player.uid(),
+                    message.id(),
+                    12 + extra_num,
+                    38 + extra_num,
+                ));
+            notify_events
+                .notify_technology_data_event
+                .send(NotifyTechnologyDataEvent(
+                    player.uid(),
+                    message.id(),
+                    13 + extra_num,
+                    38 + extra_num,
+                ));
+            notify_events
+                .notify_blueprint_data_event
+                .send(NotifyBlueprintDataEvent(
+                    player.uid(),
+                    message.id(),
+                    14 + extra_num,
+                    38 + extra_num,
+                ));
+            notify_events
+                .notify_tech_set_lists_event
+                .send(NotifyTechSetListsEvent(
+                    player.uid(),
+                    message.id(),
+                    15 + extra_num,
+                    38 + extra_num,
+                ));
+            notify_events
+                .notify_chapter_data_event
+                .send(NotifyChapterDataEvent(
+                    player.uid(),
+                    message.id(),
+                    16 + extra_num,
+                    38 + extra_num,
+                ));
+            notify_events
+                .notify_current_chapter_event
+                .send(NotifyCurrentChapterEvent(
+                    player.uid(),
+                    message.id(),
+                    17 + extra_num,
+                    38 + extra_num,
+                ));
+            notify_events
+                .notify_event_info_event
+                .send(NotifyEventInfoEvent(
+                    player.uid(),
+                    message.id(),
+                    18 + extra_num,
+                    38 + extra_num,
+                ));
+            notify_events
+                .notify_daily_level_register_event
+                .send(NotifyDailyLevelRegisterEvent(
+                    player.uid(),
+                    message.id(),
+                    19 + extra_num,
+                    38 + extra_num,
+                ));
+            notify_events
+                .notify_shop_month_event
+                .send(NotifyShopMonthEvent(
+                    player.uid(),
+                    message.id(),
+                    20 + extra_num,
+                    38 + extra_num,
+                ));
+            notify_events
+                .notify_world_data_event
+                .send(NotifyWorldDataEvent(
+                    player.uid(),
+                    message.id(),
+                    21 + extra_num,
+                    38 + extra_num,
+                ));
+            notify_events
+                .notify_equip_data_event
+                .send(NotifyEquipDataEvent(
+                    player.uid(),
+                    message.id(),
+                    22 + extra_num,
+                    38 + extra_num,
+                ));
+            notify_events
+                .notify_equip_skin_data_event
+                .send(NotifyEquipSkinDataEvent(
+                    player.uid(),
+                    message.id(),
+                    23 + extra_num,
+                    38 + extra_num,
+                ));
+            notify_events.notify_bag_data_event.send(NotifyBagDataEvent(
+                player.uid(),
+                message.id(),
+                24 + extra_num,
+                38 + extra_num,
+            ));
+            notify_events
+                .notify_init_task_info_event
+                .send(NotifyInitTaskInfoEvent(
+                    player.uid(),
+                    message.id(),
+                    25 + extra_num,
+                    38 + extra_num,
+                ));
+            notify_events.notify_week_task_progress_info_event.send(
+                NotifyWeekTaskProgressInfoEvent(
+                    player.uid(),
+                    message.id(),
+                    26 + extra_num,
+                    38 + extra_num,
+                ),
+            );
+            notify_events
+                .notify_total_task_register_event
+                .send(NotifyTotalTaskRegisterEvent(
+                    player.uid(),
+                    message.id(),
+                    27 + extra_num,
+                    38 + extra_num,
+                ));
+            notify_events
+                .notify_dorm_data_event
+                .send(NotifyDormDataEvent(
+                    player.uid(),
+                    message.id(),
+                    28 + extra_num,
+                    38 + extra_num,
+                ));
+            notify_events
+                .notify_energy_recover_time_event
+                .send(NotifyEnergyRecoverTimeEvent(
+                    player.uid(),
+                    message.id(),
+                    29 + extra_num,
+                    38 + extra_num,
+                ));
+            notify_events
+                .notify_apartment_register_event
+                .send(NotifyApartmentRegisterEvent(
+                    player.uid(),
+                    message.id(),
+                    30 + extra_num,
+                    38 + extra_num,
+                ));
+            notify_events
+                .notify_mail_register_event
+                .send(NotifyMailRegisterEvent(
+                    player.uid(),
+                    message.id(),
+                    31 + extra_num,
+                    38 + extra_num,
+                ));
+            notify_events
+                .notify_compensate_register_event
+                .send(NotifyCompensateRegisterEvent(
+                    player.uid(),
+                    message.id(),
+                    32 + extra_num,
+                    38 + extra_num,
+                ));
+            notify_events
+                .notify_notification_register_event
+                .send(NotifyNotificationRegisterEvent(
+                    player.uid(),
+                    message.id(),
+                    33 + extra_num,
+                    38 + extra_num,
+                ));
+            notify_events
+                .notify_instagram_register_event
+                .send(NotifyInstagramRegisterEvent(
+                    player.uid(),
+                    message.id(),
+                    34 + extra_num,
+                    38 + extra_num,
+                ));
+            notify_events
+                .notify_activity_data_event
+                .send(NotifyActivityDataEvent(
+                    player.uid(),
+                    message.id(),
+                    35 + extra_num,
+                    38 + extra_num,
+                ));
+            notify_events.notify_activity_permanent_register_event.send(
+                NotifyActivityPermanentRegisterEvent(
+                    player.uid(),
+                    message.id(),
+                    36 + extra_num,
+                    38 + extra_num,
+                ),
+            );
+            notify_events.notify_server_notice_register_event.send(
+                NotifyServerNoticeRegisterEvent(
+                    player.uid(),
+                    message.id(),
+                    37 + extra_num,
+                    38 + extra_num,
+                ),
+            );
 
-            finish_load_player_data_events
-                .send(FinishLoadPlayerData(player.uid(), message.id(), 38, 38));
+            finish_load_player_data_events.send(FinishLoadPlayerData(
+                player.uid(),
+                message.id(),
+                38 + extra_num,
+                38 + extra_num,
+            ));
         }
     }
 }

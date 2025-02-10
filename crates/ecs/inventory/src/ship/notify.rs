@@ -23,11 +23,23 @@ pub fn notify_ship_data(
 ) {
     for event in events.read() {
         if event.0 == player.uid() {
+            let (sc12001, sc12010s) = player
+                .info()
+                .notify_player_ships_data();
             message_output.send_seq(
-                player.info().notify_player_ships_data(),
+                sc12001,
                 event.1,
                 event.2,
                 event.3);
+            if let Some(sc12010s) = sc12010s {
+                sc12010s.iter().enumerate().for_each(|(idx, data)| {
+                    message_output.send_seq(
+                        data.clone(),
+                        event.1,
+                        event.2 + idx as u8 + 1,
+                        event.3);
+                });
+            }
         }
     }
 }
