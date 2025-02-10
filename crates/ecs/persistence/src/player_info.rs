@@ -2,7 +2,7 @@ use std::cmp::PartialEq;
 use serde::{Deserialize, Serialize};
 use proto::common::{Appreciationinfo, Commanderinfo, Displayinfo, EquipskinInfo, Idtimeinfo, Shipinfo, Shipskill};
 use proto::p11::{Benefitbuff, Resource, Sc11003, Sc11015};
-use proto::p12::{Groupinfo, Sc12001, Sc12101, Sc12201};
+use proto::p12::{Groupinfo, Sc12001, Sc12010, Sc12101, Sc12201};
 use proto::p13::{Chapterinfo, Currentchapterinfo, Sc13000, Sc13001};
 use proto::p14::{Sc14001, Sc14101};
 use proto::p15::{Iteminfo, Sc15001};
@@ -127,8 +127,8 @@ impl PlayerInfo {
             90040,
         ];
         // Ships Data
-        self.add_ship(ship_id);
         self.add_ship(106011);
+        self.add_ship(ship_id);
         // Resource
         self.add_resource(1, 3000); // Gold
         self.add_resource(2, 500);  // Oil
@@ -261,10 +261,30 @@ impl PlayerInfo {
         }
     }
 
-    pub fn notify_player_ships_data(&self) -> Sc12001 {
-        Sc12001 {
-            shiplist: self.ships.clone(),
-        }
+    pub fn notify_player_ships_data(&self) -> (Sc12001, Option<Vec<Sc12010>>) {
+        let mut chunks = self.ships.chunks(100);
+
+        let first_chunk = chunks.next().unwrap_or(&[]);
+        let sc12001 = Sc12001 {
+            shiplist: first_chunk.to_vec(),
+        };
+
+        let sc12010s: Vec<Sc12010> = chunks
+            .map(|chunk| Sc12010 {
+                ship_list: chunk.to_vec(),
+            })
+            .collect();
+        let sc12010s = if sc12010s.is_empty() {
+            None
+        } else {
+            Some(sc12010s)
+        };
+
+        (sc12001, sc12010s)
+    }
+
+    pub fn player_ships_data_chunk_extra_num(&self) -> u8 {
+        self.ships.chunks(100).len() as u8 - 1
     }
 
     pub fn notify_player_ship_skins_data(&self) -> Sc12201 {

@@ -60,18 +60,17 @@ pub fn command_handler(
                         db_data.0.iter().for_each(|(key, ship)| {
                             if ship.star == ship.star_max && ship.star >= 5 {
                                 if let Ok(id) = key.parse::<u32>() {
-                                    if ship_num < 500 {
-                                        ship_num += 1;
-                                        player.info().add_ship(id);
-                                    }
+                                    ship_num += 1;
+                                    player.info().add_ship(id);
                                 }
                             }
                         });
                         logging::debug!("GiveAllShip, Ship Number = {}", ship_num);
                     }
 
+                    let extra_num = player.info().player_ships_data_chunk_extra_num();
                     notify_ship_data_event
-                        .send(NotifyShipDataEvent(player.uid(), 0, 1, 1));
+                        .send(NotifyShipDataEvent(player.uid(), 0, 1, 1 + extra_num));
                 },
                 CommandKind::GiveAllSkin => {
                     logging::debug!("GiveAllSkin");
