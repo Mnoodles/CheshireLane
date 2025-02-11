@@ -1580,8 +1580,10 @@ dependencies = [
  "bevy_ecs",
  "chrono",
  "common",
+ "ecs-command",
  "ecs-message",
  "ecs-persistence",
+ "ecs-time",
  "proto",
 ]
 

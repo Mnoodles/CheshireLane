@@ -47,4 +47,5 @@ macro_rules! data_loader {
 data_loader!(
     [DataType::ShareCfgData] schemas::ship_data_template::ShipDataTemplate;
     [DataType::ShareCfg] schemas::ship_skin_template::ShipSkinTemplate;
+    [DataType::ShareCfgData] schemas::chapter_template::ChapterTemplate;
 );

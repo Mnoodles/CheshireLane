@@ -14,6 +14,7 @@ pub mod mail;
 pub mod notification;
 pub mod server_notice;
 mod remaster;
+mod chat;
 
 use bevy_app::prelude::*;
 
@@ -49,6 +50,9 @@ impl Plugin for SystemPlugin {
             .add_systems(PreUpdate, shop::get_charge_list)
             .add_systems(PreUpdate, remaster::remaster_info_request)
             .add_systems(PreUpdate, shop::sell_item)
-            .add_systems(PreUpdate, task::trigger_task);
+            .add_systems(PreUpdate, task::trigger_task)
+            .add_systems(PreUpdate, chat::client_send_message)
+            .insert_resource(chat::ScheduledMsg::default())
+            .add_systems(PreUpdate, chat::scheduled_message);
     }
 }
