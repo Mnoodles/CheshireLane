@@ -63,6 +63,12 @@ You can forward traffic using one of the following methods:
 
 ---
 
+## 🎬 Example
+
+https://github.com/user-attachments/assets/e3d88f0b-7d9e-4179-8f54-2a0b75c7a43d
+
+---
+
 ## ⚠️ Public Version Limitations
 
 To avoid legal issues, the **Public version** includes the following restrictions:
