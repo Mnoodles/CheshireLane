@@ -51,6 +51,7 @@ pub struct PlayerInfo {
     pub win_count: u32,
     pub character: Vec<u32>,
     pub story_list: Vec<u32>,
+    pub adv: String,
     // Player Ships Data
     pub ships: Vec<Shipinfo>,
     // Player Ship Skins Data
@@ -92,7 +93,7 @@ impl PlayerInfo {
         self.uid = uid;
         self.nick_name = nick_name;
         // default value for new account is `1`
-        self.level = 1;
+        self.level = 100;
         self.register_time = common::time::now_timestamp_s() as u32;
         self.display = Displayinfo {
             icon: ship_id,
@@ -125,7 +126,17 @@ impl PlayerInfo {
             90006,
             90023,
             90040,
+            30003,
+            30004,
+            6351,
+            90005,
+            90007,
+            90008,
+            90009,
+            90030,
+            2200001,
         ];
+        self.adv = "<color=#FFB6C1>CheshireLane</color>".to_string();
         // Ships Data
         self.add_ship(106011);
         self.add_ship(ship_id);
@@ -159,6 +170,22 @@ impl PlayerInfo {
         self.skill_class_num = 2;
         // World
         self.is_world_open = true;
+        // Chapter
+        self.chapter_infos.clear();
+        for chapter_id in data::chapter_template_data::DATA.get().unwrap().0.keys() {
+            if let Ok(chapter_id) = chapter_id.parse::<u32>() {
+                self.chapter_infos.push(Chapterinfo {
+                    take_box_count: 99,
+                    progress: 100,
+                    today_defeat_count: 0,
+                    pass_count: 99,
+                    kill_enemy_count: 99,
+                    id: chapter_id,
+                    kill_boss_count: 99,
+                    defeat_count: 99,
+                });
+            }
+        }
     }
 
     pub fn add_resource(&mut self, ty: u32, num: u32) {
@@ -257,6 +284,7 @@ impl PlayerInfo {
             win_count: self.win_count,
             character: self.character.clone(),
             story_list: self.story_list.clone(),
+            adv: self.adv.clone(),
             ..Default::default()
         }
     }

@@ -17,4 +17,6 @@ proto.workspace = true
 common.workspace = true
 ecs-message.workspace = true
 ecs-persistence.workspace = true
+ecs-time.workspace = true
+ecs-command.workspace = true
 chrono.workspace = true

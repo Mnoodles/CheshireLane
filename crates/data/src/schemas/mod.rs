@@ -1,5 +1,6 @@
 pub mod ship_data_template;
 pub mod ship_skin_template;
+pub mod chapter_template;
 
 use std::collections::HashMap;
 use std::fmt;
