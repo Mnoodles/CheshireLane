@@ -41,7 +41,6 @@ pub struct PlayerInfo {
     pub equip_bag_max: u32,
     pub guide_index: u32,
     pub mail_storeroom_lv: u32,
-    pub marry_ship: u32,
     pub max_rank: u32,
     pub pvp_attack_count: u32,
     pub pvp_win_count: u32,
@@ -223,6 +222,7 @@ impl PlayerInfo {
                         EquipskinInfo { ..Default::default() },
                         EquipskinInfo { ..Default::default() },
                     ],
+                    propose: 1,
                     ..Default::default()
                 });
             }
@@ -274,7 +274,9 @@ impl PlayerInfo {
             equip_bag_max: self.equip_bag_max,
             guide_index: self.guide_index,
             mail_storeroom_lv: self.mail_storeroom_lv,
-            marry_ship: self.marry_ship,
+            marry_ship: self.ships.iter()
+                .filter(|ship| ship.propose == 1)
+                .count() as u32,
             max_rank: self.max_rank,
             pvp_attack_count: self.pvp_attack_count,
             pvp_win_count: self.pvp_win_count,
