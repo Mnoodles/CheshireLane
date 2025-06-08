@@ -20,7 +20,7 @@ settings_path = "assets/sdk/settings.json"
 error_code_path = "assets/sdk/errorcode.json"
 
 [dispatch_config]
-ip = "192.168.31.127"
+ip = "101.6.41.183"
 port = 21180
 version_path = "assets/dispatch/version.json"
 servers_path = "assets/dispatch/servers.json"
